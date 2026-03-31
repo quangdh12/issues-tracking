@@ -3,6 +3,8 @@ import { issues } from '@/db/schema'
 import { getCurrentUser } from '@/lib/dal'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 export const GET = async () => {
   try {
     const issues = await db.query.issues.findMany({})
