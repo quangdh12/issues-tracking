@@ -2,6 +2,7 @@ import DeleteIssueButton from '@/app/components/DeleteIssueButton'
 import Badge from '@/app/components/ui/Badge'
 import Button from '@/app/components/ui/Button'
 import { getIssueById } from '@/lib/dal'
+import { connection } from 'next/server'
 import { Priority, Status } from '@/lib/types'
 import { formatRelativeTime } from '@/lib/utils'
 import { ArrowLeftIcon, Edit2Icon } from 'lucide-react'
@@ -14,6 +15,7 @@ export default async function IssuePage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
+  await connection()
   const issue = await getIssueById(parseInt(id))
 
   if (!issue) {

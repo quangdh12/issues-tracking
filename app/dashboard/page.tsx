@@ -1,6 +1,7 @@
 import { getIssues } from '@/lib/dal'
 import Link from 'next/link'
 import Button from '../components/ui/Button'
+import { connection } from 'next/server'
 import { PlusIcon } from 'lucide-react'
 import { ISSUE_PRIORITY, ISSUE_STATUS } from '@/db/schema'
 import Badge from '../components/ui/Badge'
@@ -8,6 +9,7 @@ import { Priority, Status } from '@/lib/types'
 import { formatRelativeTime } from '@/lib/utils'
 
 export default async function DashboardPage() {
+  await connection()
   const issues = await getIssues()
 
   return (

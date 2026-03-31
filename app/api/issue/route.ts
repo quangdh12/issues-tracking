@@ -2,10 +2,10 @@ import { db } from '@/db'
 import { issues } from '@/db/schema'
 import { getCurrentUser } from '@/lib/dal'
 import { NextRequest, NextResponse } from 'next/server'
-
-export const dynamic = 'force-dynamic'
+import { connection } from 'next/server'
 
 export const GET = async () => {
+  await connection()
   try {
     const issues = await db.query.issues.findMany({})
     return NextResponse.json({ data: { issues } })
@@ -19,6 +19,7 @@ export const GET = async () => {
 }
 
 export const POST = async (req: NextRequest) => {
+  await connection()
   try {
     const user = await getCurrentUser()
     const newIssueData = await req.json()
